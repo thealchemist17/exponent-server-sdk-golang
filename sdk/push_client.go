@@ -108,6 +108,10 @@ func (c *PushClient) publishInternal(messages []PushMessage) ([]PushResponse, er
 		return nil, err
 	}
 
+	query := req.URL.Query()
+	query.Add("useFcmV1", "true")
+	req.URL.RawQuery = query.Encode()
+
 	// Add appropriate headers
 	req.Header.Add("Content-Type", "application/json")
 	if c.accessToken != "" {
